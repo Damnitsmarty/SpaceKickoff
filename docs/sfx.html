@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>sfx - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Ball.html">Ball</a><ul class='methods'><li data-type='method'><a href="Ball.html#centre">centre</a></li><li data-type='method'><a href="Ball.html#checkForCollisions">checkForCollisions</a></li><li data-type='method'><a href="Ball.html#draw">draw</a></li><li data-type='method'><a href="Ball.html#isOutOfBounds">isOutOfBounds</a></li><li data-type='method'><a href="Ball.html#setImage">setImage</a></li><li data-type='method'><a href="Ball.html#setPos">setPos</a></li><li data-type='method'><a href="Ball.html#setRotation">setRotation</a></li><li data-type='method'><a href="Ball.html#setSize">setSize</a></li><li data-type='method'><a href="Ball.html#update">update</a></li></ul></li><li><a href="Drawable.html">Drawable</a><ul class='methods'><li data-type='method'><a href="Drawable.html#draw">draw</a></li><li data-type='method'><a href="Drawable.html#setImage">setImage</a></li><li data-type='method'><a href="Drawable.html#setPos">setPos</a></li><li data-type='method'><a href="Drawable.html#setRotation">setRotation</a></li><li data-type='method'><a href="Drawable.html#setSize">setSize</a></li></ul></li><li><a href="Paddle.html">Paddle</a><ul class='methods'><li data-type='method'><a href="Paddle.html#clamp">clamp</a></li><li data-type='method'><a href="Paddle.html#debugDraw">debugDraw</a></li><li data-type='method'><a href="Paddle.html#draw">draw</a></li><li data-type='method'><a href="Paddle.html#getTouchPos">getTouchPos</a></li><li data-type='method'><a href="Paddle.html#length">length</a></li><li data-type='method'><a href="Paddle.html#onTouchEnd">onTouchEnd</a></li><li data-type='method'><a href="Paddle.html#onTouchMove">onTouchMove</a></li><li data-type='method'><a href="Paddle.html#onTouchStart">onTouchStart</a></li><li data-type='method'><a href="Paddle.html#projectionOf">projectionOf</a></li></ul></li></ul><h3>Externals</h3><ul><li><a href="external-Howler.html">Howler</a></li><li><a href="external-Victor.html">Victor</a></li></ul><h3>Namespaces</h3><ul><li><a href="game.html">game</a><ul class='methods'><li data-type='method'><a href="game.html#.canvasToWorldHeight">canvasToWorldHeight</a></li><li data-type='method'><a href="game.html#.drawBottomUI">drawBottomUI</a></li><li data-type='method'><a href="game.html#.drawHeightMarkers">drawHeightMarkers</a></li><li data-type='method'><a href="game.html#.drawLeftUI">drawLeftUI</a></li><li data-type='method'><a href="game.html#.gameOver">gameOver</a></li><li data-type='method'><a href="game.html#.init">init</a></li><li data-type='method'><a href="game.html#.pause">pause</a></li><li data-type='method'><a href="game.html#.renderFrame">renderFrame</a></li><li data-type='method'><a href="game.html#.restartGame">restartGame</a></li><li data-type='method'><a href="game.html#.resume">resume</a></li></ul></li><li><a href="game.Colours.html">Colours</a><ul class='methods'><li data-type='method'><a href="game.Colours.html#.transparent">transparent</a></li></ul></li><li><a href="game.PlayState.html">PlayState</a></li><li><a href="sfx.html">sfx</a><ul class='methods'><li data-type='method'><a href="sfx.html#.load">load</a></li><li data-type='method'><a href="sfx.html#.play">play</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">sfx</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        sfx
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sfx.js.html">sfx.js</a>, <a href="sfx.js.html#line8">line 8</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sfxArray</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A dictionary holding all Audio objects</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".load"><span class="type-signature">(static) </span>load<span class="signature">(id, path, volume<span class="signature-attributes">opt</span>, loop<span class="signature-attributes">opt</span>, singleton<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sfx.js.html">sfx.js</a>, <a href="sfx.js.html#line38">line 38</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Loads an audio file into the sfx array
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The ID of the new sfx</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>path</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The path to the Audio file</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>volume</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>1</code>
+                
+                </td>
+            
+
+            <td class="description last">The volume of the audio file</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>loop</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>false</code>
+                
+                </td>
+            
+
+            <td class="description last">Should the audio loop</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>singleton</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>false</code>
+                
+                </td>
+            
+
+            <td class="description last">Cannot be played simultaneously more than once? used for bcg music</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".play"><span class="type-signature">(static) </span>play<span class="signature">(id)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sfx.js.html">sfx.js</a>, <a href="sfx.js.html#line21">line 21</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description">
+    Plays the sfx with the given ID
+</div>
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">ID of the sfx to be played</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Dec 11 2017 08:40:09 GMT+0000 (GMT Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

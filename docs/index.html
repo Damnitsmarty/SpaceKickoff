@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Home - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Ball.html">Ball</a><ul class='methods'><li data-type='method'><a href="Ball.html#centre">centre</a></li><li data-type='method'><a href="Ball.html#checkForCollisions">checkForCollisions</a></li><li data-type='method'><a href="Ball.html#draw">draw</a></li><li data-type='method'><a href="Ball.html#isOutOfBounds">isOutOfBounds</a></li><li data-type='method'><a href="Ball.html#setImage">setImage</a></li><li data-type='method'><a href="Ball.html#setPos">setPos</a></li><li data-type='method'><a href="Ball.html#setRotation">setRotation</a></li><li data-type='method'><a href="Ball.html#setSize">setSize</a></li><li data-type='method'><a href="Ball.html#update">update</a></li></ul></li><li><a href="Drawable.html">Drawable</a><ul class='methods'><li data-type='method'><a href="Drawable.html#draw">draw</a></li><li data-type='method'><a href="Drawable.html#setImage">setImage</a></li><li data-type='method'><a href="Drawable.html#setPos">setPos</a></li><li data-type='method'><a href="Drawable.html#setRotation">setRotation</a></li><li data-type='method'><a href="Drawable.html#setSize">setSize</a></li></ul></li><li><a href="Paddle.html">Paddle</a><ul class='methods'><li data-type='method'><a href="Paddle.html#clamp">clamp</a></li><li data-type='method'><a href="Paddle.html#debugDraw">debugDraw</a></li><li data-type='method'><a href="Paddle.html#draw">draw</a></li><li data-type='method'><a href="Paddle.html#getTouchPos">getTouchPos</a></li><li data-type='method'><a href="Paddle.html#length">length</a></li><li data-type='method'><a href="Paddle.html#onTouchEnd">onTouchEnd</a></li><li data-type='method'><a href="Paddle.html#onTouchMove">onTouchMove</a></li><li data-type='method'><a href="Paddle.html#onTouchStart">onTouchStart</a></li><li data-type='method'><a href="Paddle.html#projectionOf">projectionOf</a></li></ul></li></ul><h3>Externals</h3><ul><li><a href="external-Howler.html">Howler</a></li><li><a href="external-Victor.html">Victor</a></li></ul><h3>Namespaces</h3><ul><li><a href="game.html">game</a><ul class='methods'><li data-type='method'><a href="game.html#.canvasToWorldHeight">canvasToWorldHeight</a></li><li data-type='method'><a href="game.html#.drawBottomUI">drawBottomUI</a></li><li data-type='method'><a href="game.html#.drawHeightMarkers">drawHeightMarkers</a></li><li data-type='method'><a href="game.html#.drawLeftUI">drawLeftUI</a></li><li data-type='method'><a href="game.html#.gameOver">gameOver</a></li><li data-type='method'><a href="game.html#.init">init</a></li><li data-type='method'><a href="game.html#.pause">pause</a></li><li data-type='method'><a href="game.html#.renderFrame">renderFrame</a></li><li data-type='method'><a href="game.html#.restartGame">restartGame</a></li><li data-type='method'><a href="game.html#.resume">resume</a></li></ul></li><li><a href="game.Colours.html">Colours</a><ul class='methods'><li data-type='method'><a href="game.Colours.html#.transparent">transparent</a></li></ul></li><li><a href="game.PlayState.html">PlayState</a></li><li><a href="sfx.html">sfx</a><ul class='methods'><li data-type='method'><a href="sfx.html#.load">load</a></li><li data-type='method'><a href="sfx.html#.play">play</a></li></ul></li></ul>
+</nav>
+
+<div id="main">
+    
+
+    
+
+
+
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+    <section class="readme">
+        <article><h1>Code Explanation</h1><hr>
+<h2>Working with Canvas and World Dimensions</h2><hr>
+<h3>Position</h3><p>The game uses the CanvasContext2D's ability to <strong>translate</strong> its coordinate system to better emulate physics. However, this method effectively introduces a second (transformed) coordinate system. In order to differentiate between coordinate types, the systems have been labeled <strong>World Space</strong> and <strong>Screen Space</strong>.</p>
+<blockquote>
+<p><strong>World Space</strong> represents the <strong>Absolute</strong> coordinates of a point.<br><strong>Screen Space</strong> represents the <strong>Relative</strong> coordinates of a point to the canvas' current top-left point.</p>
+</blockquote>
+<p>For example, if the canvas has been translated by <code>(100,100)</code>, the coordinates of the point <code>X = (20,20)</code> in World Space are still <code>Xw = X = (20,20)</code>, but in Screen Space, it translates (along with the canvas) to <code>Xs = (120,120)</code>.</p>
+<p>Objects in the game rely on Absolute coordinates so they can be drawn to the screen correctly. Therefore every position variable represents World Space coordinates. However, Relative coordinates may be used occasionally, when an object needs to position itself according to the boundaries of the canvas (e.g. when the ball initially spawns at the center of the screen).</p>
+<h3>Size</h3><p>When the Canvas element is positioned on the HTML page, there are 2 properties that dictate how sizing will behave:</p>
+<ul>
+<li>Object Size Attributes (defined in HTML)<pre class="prettyprint source lang-html"><code>&lt;canvas width=&quot;340&quot; height=&quot;200&quot;>&lt;/canvas></code></pre></li>
+<li>Element Style Attributes (defined in CSS)<pre class="prettyprint source lang-css"><code>canvas {width:340px; height:200px;}</code></pre></li>
+</ul>
+<p>The Canvas object stretches itself to meet the dimensions of its HTML element, the size of which is determined by the CSS Attributes. Changing the CSS Attributes of the Canvas element does not change the actual dimensions of the image on the canvas. Therefore the unit of measurement used in the canvas is not always a pixel. To adress this, the game contains a <code>resizeCanvas()</code> method that is called when the <code>onresize</code> event is fired from the browser. This method changes the Size Attributes of the Canvas object to the dimensions of the browser window. It does not modify any object position on the screen, but since the Android application should be restricted to Portrait mode, it should not be fired more than once and only at the start of the game.</p>
+<hr>
+<h2>Using Vector Mathematics</h2><hr>
+<p>The game uses the <strong><a href="./external-Victor.html">Victor.js</a></strong> external library to represent the position of game objects and the velocity of the ball. Information about the library specification is available from its <a href="http://victorjs.org">website</a>. Victor.js is a 2D vector class which provides operations related to 2D Vector mathematics. Its addition to this project simplifies aspects of it like collision detection and velocity calculations, which are explained in the section below.</p>
+<h3>Types of vectors</h3><p>It is important to note, that in geometry there are two types of vectors: <strong>free</strong> and <strong>bound</strong>. While both types possess the basic properties of direction and magnitude, bound vectors also have a definite start and end point. Bound vectors are also called Euclidean or geometric vectors. A bound vector in this case can be considered a directed line segment. In contrast, a free vector lacks a start and end point, only being defined by its basic properties. This means that two bound vectors can represent the same free vector if they have equal directions and magnitudes.</p>
+<p><em>Figure 1</em>, below, is an example of the two types of vectors. The red vector <strong><em>v</em></strong> is a bound vector, as it starts from a definite point (<strong>A</strong>) and ends at a definite point (<strong>B</strong>). All other vectors are considered free, as they have no definite points, instead starting from the origin. By removing the defining points of <strong><em>v</em></strong>, we can transform it into a free vector, which in this case equals <strong><em>v1</em></strong>.</p>
+<p>In algebraic terms, this transformation can by defined by the equation <code>v1 = b-a</code>, where <strong><em>a</em></strong> and <strong><em>b</em></strong> are the free vectors to the start and end point of the bound vector <strong><em>v</em></strong>.</p>
+<blockquote>
+<p><img src="./img/vector-types.png" alt=""><br>Figure 1: Types of vectors</p>
+</blockquote>
+<p>Victor.js uses free vectors as its basis. However, in order to perform transformations correctly, the game must sometimes use bound vectors. It is important, then, to temporarily transform all bound vectors to free ones for the duration of any calculations.</p>
+<h3>Collision detection</h3><p>The game has two objects, which can collide with each other: the ball and the paddle. These objects are represented by two basic shapes - a circle and line respectively.
+<em>Figure 2</em> shows two basic examples of the ball colliding with the paddle. By examining them, we can discover, that a valid collision is occurring, if the distance from the centre of the ball to the paddle is less than the radius of the ball. Therefore, <strong>r</strong> and <strong>cp</strong> are the variables we need to obtain in order to test for this condition.</p>
+<blockquote>
+<p><img src="./img/collision-detection.png" alt=""><br>Figure 2: Examples of collisions</p>
+</blockquote>
+<p>The diameter of the ball is defined in the Ball object, and therefore the radius is accessible via <code>ball.diameter / 2</code>.</p>
+<p>The distance from a the centre to the paddle can be found by constructing a projection of the centre onto the line which the paddle segment is part of. Victor.js defines a method for this:</p>
+<pre class="prettyprint source lang-js"><code>    // Projects a vector onto another vector, setting itself to the result.
+    Victor.prototype.projectOnto = function(vec2) {...}</code></pre><p>The position of the paddle, however is a bound vector. So in order to correctly perform the projection, we need to first transform it into a free vector, perform the projection and afterwards translate the result back, in order to preserve its coordinates in 2d space. This is implemented in the <code>paddle.projectionOf(v)</code> method:</p>
+<pre class="prettyprint source lang-js"><code>    // Returns a projection of the vector v onto the paddle's line
+    Paddle.prototype.projectionOf = function(v){
+        // clone v and offset by Paddle's start position
+        // this represents a vector from the Paddle start position to v's coordinates
+        var vActual = v.clone().subtract(this.pos.start);
+        // translate the paddle's end position to the origin
+        // this represents the paddle line going through the (0,0) origin
+        var endActual = this.pos.end.clone().subtract(this.pos.start);
+
+        //get the projection of v
+        vActual.projectOnto(endActual);
+
+        //translate the projection back by the Paddle's start position
+        vActual.add(this.pos.start);
+        return vActual;
+    }</code></pre><blockquote>
+<p>Note that since the <strong><em>v</em></strong> parameter is not of a primitive type, it is not copied, but rather passed as a reference. Any changes done to it will modify the original object. To bypass this, we use Victor.js' <code>clone()</code> method to construct a new vector and perform all modifications on it, rather than the original. The same is true for the paddle's <code>pos.end</code> vector.</p>
+</blockquote>
+<p>After the projection is obtained, the collision test can be performed.</p>
+<pre class="prettyprint source lang-js"><code>    // calculate collision based on the distance from the Ball centre to its projection
+    var isColliding = proj.distance(this.centre()) &lt;= this.diameter / 2;</code></pre><p>The projection may at any point lie on the paddle's line, but not on the paddle itself. To account for this situation (shown in <em>Figure 3a</em>), an additional test must be constructed to check whether the projection lies within the bounds of the paddle.</p>
+<blockquote>
+<p><img src="./img/collision-test-2.png" alt=""><br>Figure 3a and 3b: A false positive and a false negative</p>
+</blockquote>
+<pre class="prettyprint source lang-js"><code>    var canCollide = proj.distance(game.paddle.pos.start) + proj.distance(game.paddle.pos.end) &lt;= game.paddle.length();</code></pre><p>This test considers the ball as a one-dimensional object, since it only accounts for the projection of one point of the ball (the centre). For a more consistent detection, the second test must be amended to detect collisions when the distance from the projection to any end-point of the paddle is less than the radius of the ball (see <em>Figure 3b</em>).</p>
+<pre class="prettyprint source lang-js"><code>    var canCollide = proj.distance(game.paddle.pos.start) + proj.distance(game.paddle.pos.end) - game.paddle.length() &lt;= this.diameter / 2;</code></pre><p>With these two tests, the game can determine with a sufficient percent of accuracy when the ball and the paddle have collided.</p>
+<blockquote>
+<p>These tests are performed in the <code>Ball.prototype.checkForCollisions()</code> method (<a href="./Ball.html#checkForCollisions">Ball.js</a>, <a href="./ball.js.html#line144">line 144</a>)</p>
+</blockquote>
+<h3>Compensating for collisions</h3><p>While the collision detection is accurate, it only fires once the ball has already collided with the paddle. The ball's position must therefore be corrected so it reverts to the point where its merely touching the paddle. This can be done by positioning the ball centre further along the projection line so that the distance between it and the projection point is equal to the ball's radius. The following code addresses this.</p>
+<pre class="prettyprint source lang-js"><code>    // represents vector from projection to ball centre
+    var tCentre = this.centre().subtract(proj);
+    // multiply the translated vector so its magnitude is equal to the Ball's radius
+    var coeff = (this.diameter / 2) / tCentre.magnitude();
+    tCentre.multiplyScalar(coeff);
+    // and translate it back
+    tCentre.add(proj);
+    //apply the new position
+    this.pos = tCentre.subtract(new Victor(this.diameter/2, this.diameter/2));</code></pre><h3>Bouncing the Ball</h3><p>These calculations are meaningless if the ball continues to travel towards the paddle. In order to make it bounce off when collided, the <code>ball.velocity</code> is reflected off the normal of the paddle. This is achieved by constructing a projection (<strong><em>pv</em></strong>) of the velocity vector <strong><em>v</em></strong> onto the normal vector <strong><em>n</em></strong>, doubling that (<strong><em>2pv</em></strong>), and subtracting it from <strong><em>v</em></strong>: <code>vnew = v - 2* projection(v,n)</code> (see <em>Figure 4</em>). The resulting velocity is finally multiplied by <code>2*bounceModifier</code> so the ball gains velocity when it bounces and the game continues.</p>
+<blockquote>
+<p><img src="./img/velocity-reflect.png" alt=""><br>Figure 4: Reflection of velocity</p>
+</blockquote>
+<pre class="prettyprint source lang-js"><code>    // represents the normal of the game.paddle line
+    // which in this case is parallel to the vector from the Ball centre to its projection
+    var normal = proj.subtract(this.centre());
+    // project the velocity vector onto the normal
+    var velProj = this.velocity.clone().projectOnto(normal);
+    // and double
+    velProj.multiplyScalar(2);
+
+    // finally subtract the velocity projection from the actual velocity
+    // and make sure the final velocity does not decay over time
+    // by multiplying by 2*bounceModifier
+    this.velocity.subtract(velProj).multiplyScalar(2*this.bounceModifier)</code></pre><h2>Sound Effects</h2><p>Originally, the sound effects were implemented via the <code>Audio</code> element. However, this approach has some inherent flaws.</p>
+<p>The HTML5 <code>Audio</code> element's behaviour is not consistent on mobile browsers. Different articles report different results, however they all agree on two major flaws that make this approach not suitable for Game development.</p>
+<ul>
+<li><p>Mobile browsers only support playback of one <code>&lt;audio&gt;</code> element at any time.
+Due to lack of hardware testing environments, this issue could not be investigated thoroughly. However, when tested using Chrome 62.0 on an Android 7 device, this problem did not appear. Since the game uses two tracks as background music, which are played simultaneously, testing should have revealed only one of these tracks playing. This did not happen during tests and both tracks were audible, with no developer warnings displayed by the console.</p>
+</li>
+<li><p>Audio playback must be initiated by user input.
+Indeed, when tested in a mobile browser, the bouncing sound effect, which should be played when the ball bounces off a wall or the paddle does not play. Chrome instead delivers the message shown in <em>Figure 5</em>. This is the main issue when implementing this approach. It is important to note that the background music is unaffected by this since it is triggered (albeit indirectly) when either the Start or Replay button is pressed. This, combined with its loop property manages to keep the sound playing throughout the game.</p>
+</li>
+</ul>
+<blockquote>
+<p><img src="./img/android-audio-log.png" alt=""><br>Figure 5: Mobile browser audio error message</p>
+</blockquote>
+<p>The <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/Audio_for_Web_Games">Mozilla Developer Network</a> suggests that the newer Web Audio API does not suffer from the same problems. <code>Howler.js</code> is a third-party library that uses the Web Audio API by default and falls back to HTML5 Audio. It provides a simple way to load and play sound effects and offers features such as sound pools and fading. Sounds in the game are handled through the <code>sfx</code> object. This object extends the functionality of Howler by providing a unique id for every sound and adds singleton sounds. A singleton sound's playback is only started if it is not currently playing. An example of singleton sound is the background music, which gets triggered at every new game initialization.
+The <code>sfx</code> object hosts two methods: <code>sfx.load()</code> and <code>sfx.play()</code>. Loading all sounds is done when loading the page, via the <code>game.init()</code> method. All loaded sounds are stored in the <code>sfx.sfxArray</code> object and can be accessed through their respective IDs.</p>
+<pre class="prettyprint source lang-js"><code>var sfx = {
+    sfxArray:{},
+    play: function(id){
+        var s = sfx.sfxArray[id];
+        if(s){
+            // return if the sound is a singleton and is already being played
+            if(s.singleton == true && s.playing()) return;
+            sfx.sfxArray[id].play();
+        }
+    },
+    load: function(id, path, volume, loop, singleton){
+        sfx.sfxArray[id] = new Howl({
+            src:[path],
+            volume: volume || 1,
+            loop: loop || false,
+            preload: true,
+        });
+        if(singleton) sfx.sfxArray[id].singleton = singleton;
+    }
+}</code></pre><h2>References</h2><ul>
+<li><p><a href=""></a></p>
+</li>
+<li><p><a href="https://www.youtube.com/watch?v=naaeH1qbjdQ">Math for Game Developers - Vector Reflections</a><br>Helped with calculations for velocity reflection</p>
+</li>
+</ul></article>
+    </section>
+
+
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        ball.js
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="ball.js.html">ball.js</a>, <a href="ball.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Martin Kolev</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+        
+            <div class="description">Defines the Ball class which is in charge of drawing and updating the Ball Game Object</div>
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        drawable.js
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="drawable.js.html">drawable.js</a>, <a href="drawable.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Martin Kolev</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+        
+            <div class="description">Defines the Drawable class used for drawing sprites.</div>
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        paddle.js
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="paddle.js.html">paddle.js</a>, <a href="paddle.js.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Martin Kolev</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+        
+            <div class="description">Defines the Paddle class used for reading player input and controlling the player object</div>
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        sfx.js
+        </h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="sfx.js.html">sfx.js</a>, <a href="sfx.js.html#line3">line 3</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>Martin Kolev</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+        
+            <div class="description">Describes the SFX namespace, containing methods for playing and loading Audio</div>
+        
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon Dec 11 2017 08:40:08 GMT+0000 (GMT Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
