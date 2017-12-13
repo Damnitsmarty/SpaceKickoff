@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Space Kickoff</title>
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+  <canvas id="game"> Canvas is not supported or did not load properly.</canvas>
+  <div id="mainMenu">
+      <div class="title">
+          <h1>Space Kickoff</h1>
+      </div>
+      <button id="btnStart">Start Game</button>
+  </div>
+  <div id="gameOverScreen" style="display:none">
+      <div class="title">
+          <h1>Game Over!</h1>
+          <h2>Your ball reached</h2>
+          <h2 id="finalScore">8888888m</h2>
+      </div>
+      <button id="btnRetry">Retry</button>
+  </div>
+  <div id="timer" style="display:none">3</div>
+</body>
+<!--Require Victor.js-->
+<script type="text/javascript" src="js/victor.js"></script>
+<script type="text/javascript" src="js/howler.js"></script>
+<!--Require audio manager-->
+<script type="text/javascript" src="js/sfx.js"></script>
+<!--Object Scripts-->
+<script type="text/javascript" src="js/drawable.js"></script>
+<script type="text/javascript" src="js/paddle.js"></script>
+<script type="text/javascript" src="js/ball.js"></script>
+<!--Main Script-->
+<script type="text/javascript" src="js/game.js"></script>
+
+</html>
